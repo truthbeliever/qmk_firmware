@@ -43,8 +43,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  */
   [_QWERTZ] = LAYOUT(
-      KC_ESC,  CH_Q,   CH_W,   CH_E,   CH_R,   CH_T,                                                       CH_Z,    CH_U,    CH_I,    CH_O,    CH_P,    CH_UE,
-      MT(MOD_LCTL,KC_TAB),  CH_A,   CH_S,   CH_D,   CH_F,   CH_G,                                                       CH_H,    CH_J,    CH_K,    CH_L,    CH_OE,   MT(MOD_RCTL,CH_AE),
+      KC_ESC,  CH_Q,   CH_W,   CH_E,   CH_R,   CH_T,                                                 CH_Z,    CH_U,    CH_I,    CH_O,    CH_P,    CH_UE,
+      MT(MOD_LCTL,KC_TAB),  CH_A,   CH_S,   CH_D,   CH_F,   CH_G,                                    CH_H,    CH_J,    CH_K,    CH_L,    CH_OE,   MT(MOD_RCTL,CH_AE),
       KC_LSPO, CH_Y,   CH_X,   CH_C,   CH_V,   CH_B,   MO(_RAISE), KC_LCTL , KC_RCTL,   MO(_RAISE),  CH_N,    CH_M,    CH_COMM, CH_DOT,  CH_MINS, KC_RSPC,
               KC_LGUI, MO(_NAV),KC_BSPC, KC_DEL, MT(MOD_LALT,KC_CAPS), MT(MOD_RALT, KC_CAPS), KC_ENT, KC_SPC, MO(_NAV), MO(_ADJUST)
     ),
@@ -63,8 +63,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
      [_COLEMAK] = LAYOUT(
-      _______, KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_B   ,                                     KC_J    ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,KC_QUOT ,
-      _______, KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_G   ,                                     KC_M    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,MT(MOD_RCTL,KC_MINUS),
+      _______, KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_B   ,                                     KC_J    ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,KC_MINUS ,
+      _______, KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_G   ,                                     KC_M    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,MT(MOD_RCTL, KC_EQL),
       _______, KC_Z    ,KC_X    ,KC_C    ,KC_D    ,KC_V   , _______, _______, _______, _______, KC_K    ,KC_H    ,KC_COMM ,KC_DOT  ,KC_SLSH ,_______ ,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
