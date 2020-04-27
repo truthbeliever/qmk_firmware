@@ -23,78 +23,22 @@ enum custom_keycodes {
 
 // Tap dance keycodes
 enum tap_dance{
-  TD_SCLN, // ;; -> :
-  TD_LBRC, // [[ -> {
-  TD_RBRC, // ]] -> }
-  TD_QMRK  // // -> ?
+  TD_OE, // oo -> oe
+  TD_AE, // aa -> ae
+  TD_UE // uu -> ue
 };
-
-// Semicolon to Colon
-void dance_scln_finished (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    register_code (KC_SCLN);
-  } else {
-    register_code (KC_RSFT);
-    register_code (KC_SCLN);
-  }
-}
-void dance_scln_reset (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    unregister_code (KC_SCLN);
-  } else {
-    unregister_code (KC_RSFT);
-    unregister_code (KC_SCLN);
-  }
-}
-
-// Square braket to curly bracket (left)
-void dance_lbrc_finished (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    register_code (KC_LBRC);
-  } else {
-    register_code (KC_RSFT);
-    register_code (KC_LBRC);
-  }
-}
-void dance_lbrc_reset (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    unregister_code (KC_LBRC);
-  } else {
-    unregister_code (KC_RSFT);
-    unregister_code (KC_LBRC);
-  }
-}
-
-// Square braket to curly bracket (right)
-void dance_rbrc_finished (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    register_code (KC_RBRC);
-  } else {
-    register_code (KC_RSFT);
-    register_code (KC_RBRC);
-  }
-}
-void dance_rbrc_reset (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    unregister_code (KC_RBRC);
-  } else {
-    unregister_code (KC_RSFT);
-    unregister_code (KC_RBRC);
-  }
-}
-
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_SCLN]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_scln_finished, dance_scln_reset),
-  [TD_LBRC]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_lbrc_finished, dance_lbrc_reset),
-  [TD_RBRC]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_rbrc_finished, dance_rbrc_reset)
+  [TD_AE]  = ACTION_TAP_DANCE_DOUBLE(KC_A, UC(0xE4)),
+  [TD_UE]  = ACTION_TAP_DANCE_DOUBLE(KC_U, UC(0xFC)),
+  [TD_OE]  = ACTION_TAP_DANCE_DOUBLE(KC_O, UC(0xF6))
 };
 
 // - Tap dance:
-#define KC_TDSC TD(TD_SCLN)           // ;; -> :
-#define KC_TDLB TD(TD_LBRC)           // [[ -> {
-#define KC_TDRB TD(TD_RBRC)           // ]] -> }
+#define KC_TDOE TD(TD_OE)           // oo -> oe
+#define KC_TDAE TD(TD_AE)           // aa -> ae
+#define KC_TDUE TD(TD_UE)           // uu -> ue
 
 
 // Shortcut to make keymap more readable
@@ -136,9 +80,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
        KC_ESC  ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                                            KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_CMIN ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       KC_ATAB ,KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_B    ,KC_LBRC                           ,KC_RBRC ,KC_J    ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,KC_EQL  ,
+       KC_ATAB ,KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_B    ,KC_LBRC                           ,KC_RBRC ,KC_J    ,KC_L    ,KC_TDUE ,KC_Y    ,KC_SCLN ,KC_EQL  ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       KC_BSLS ,KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_G    ,KC_SPC                            ,KC_BSPC ,KC_M    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,KC_QUOT ,
+       KC_BSLS ,KC_TDAE ,KC_R    ,KC_S    ,KC_T    ,KC_G    ,KC_SPC                            ,KC_BSPC ,KC_M    ,KC_N    ,KC_E    ,KC_I    ,KC_TDOE ,KC_QUOT ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        KC_LSPO ,KC_Z    ,KC_X    ,KC_C    ,KC_D    ,KC_V    ,KC_FUNC_E ,KC_AD_PSCR    ,KC_AD_INS,KC_FUNC,KC_K    ,KC_H    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSPC ,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
@@ -150,9 +94,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
        KC_ESC  ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                                            KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_CMIN ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       KC_ATAB ,KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_G    ,KC_LBRC                           ,KC_RBRC ,KC_J    ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,KC_EQL  ,
+       KC_ATAB ,KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_G    ,KC_LBRC                           ,KC_RBRC ,KC_J    ,KC_L    ,KC_TDUE ,KC_Y    ,KC_SCLN ,KC_EQL  ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       KC_BSLS ,KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_D    ,KC_SPC                            ,KC_BSPC ,KC_H    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,KC_QUOT ,
+       KC_BSLS ,KC_TDAE ,KC_R    ,KC_S    ,KC_T    ,KC_D    ,KC_SPC                            ,KC_BSPC ,KC_H    ,KC_N    ,KC_E    ,KC_I    ,KC_TDOE ,KC_QUOT ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        KC_LSPO ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,KC_FUNC_E ,KC_AD_PSCR    ,KC_AD_INS,KC_FUNC,KC_K    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSPC ,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
@@ -179,9 +123,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
        _______ ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                                            KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,_______ ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       _______ ,KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T    ,_______                           ,_______ ,KC_Z    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,_______ ,
+       _______ ,KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T    ,_______                           ,_______ ,KC_Z    ,KC_TDUE ,KC_I    ,KC_TDOE ,KC_P    ,_______ ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       KC_BSLS ,KC_A    ,KC_S    ,KC_D    ,KC_F    ,KC_G    ,_______                           ,_______ ,KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,_______ ,
+       KC_BSLS ,KC_TDAE ,KC_S    ,KC_D    ,KC_F    ,KC_G    ,_______                           ,_______ ,KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,_______ ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        _______ ,KC_Y    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,_______ ,_______         ,_______ ,_______ ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,_______ ,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
