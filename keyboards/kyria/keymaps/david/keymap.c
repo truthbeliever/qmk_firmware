@@ -15,6 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #include "keymap_german_ch.h"
+#include <stdio.h>
 
 enum layers {
     _QWERTZ = 0,
@@ -24,7 +25,8 @@ enum layers {
     _ADJUST
 };
 
-
+char wpm_str[10];
+uint16_t wpm_graph_timer = 0;
 #define KC_BSPSHT MT(MOD_LSFT,KC_BSPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -36,18 +38,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |ctrlTAB |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ö    |  ä ctrl|
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LSFT ( |   Y  |   X  |   C  |   V  |   B  | Numb |ALT   |  |  ALT | Numb |   N  |   M  | ,  ; | . :  | - _  | ) RSFT |
+ * | LSFT ( |   Y  |   X  |   C  |   V  |   B  | Numb |ALTcap|  | ALTcP| Numb |   N  |   M  | ,  ; | . :  | - _  | ) RSFT |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | win  | Nav  | Bspc | Del  | Bspc |  |  Caps| Enter| Space| Nav  |adjust|
- *                        |      |      | shft |      |      |  |  CTRL|      |      |      |      |
+ *                        | win  | Nav  | Bspc | Del  | Bspc |  |  SPC | Enter| Space| Nav  |adjust|
+ *                        |      |      | shft |      |      |  |      |      | shift|      |      |
  *                        `----------------------------------'  `----------------------------------'
  *
  */
   [_QWERTZ] = LAYOUT(
       KC_ESC,  CH_Q,   CH_W,   CH_E,   CH_R,   CH_T,                                                 CH_Z,    CH_U,    CH_I,    CH_O,    CH_P,    CH_UE,
       MT(MOD_LCTL,KC_TAB),  CH_A,   CH_S,   CH_D,   CH_F,   CH_G,                                    CH_H,    CH_J,    CH_K,    CH_L,    CH_OE,   MT(MOD_RCTL,CH_AE),
-      KC_LSPO, CH_Y,   CH_X,   CH_C,   CH_V,   CH_B,   MO(_RAISE), MOD_LALT , MOD_RALT,   MO(_RAISE), CH_N,    CH_M,    CH_COMM, CH_DOT,  CH_MINS, KC_RSPC,
-              KC_LGUI, MO(_NAV),KC_BSPSHT, KC_DEL, KC_BSPC,    MT(MOD_RCTL, KC_CAPS), KC_ENT, KC_SPC, MO(_NAV), MO(_ADJUST)
+      KC_LSPO, CH_Y,   CH_X,   CH_C,   CH_V,   CH_B,   MO(_RAISE), MT(MOD_LALT,KC_CAPS) , MT(MOD_RALT,KC_CAPS),   MO(_RAISE), CH_N,    CH_M,    CH_COMM, CH_DOT,  CH_MINS, KC_RSPC,
+              KC_LGUI, MO(_NAV),KC_BSPSHT, KC_DEL, KC_BSPC,    KC_SPC, KC_ENT,  MT(MOD_RSFT,KC_SPC), MO(_NAV), MO(_ADJUST)
     ),
 /*
  * COLMAK Layer:
@@ -214,19 +216,167 @@ static void render_status(void) {
     uint8_t led_usb_state = host_keyboard_leds();
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+   // oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+     #ifdef WPM_ENABLE
+    // Write WPM
+    sprintf(wpm_str, "WPM: %03d", get_current_wpm());
+    oled_write_P(PSTR("\n"), false);
+    oled_write(wpm_str, false);
+    #endif
+}
+
+
+static uint8_t zero_bar_count = 0;
+static uint8_t bar_count = 0;
+
+static void render_wpm_graph(void) {
+    uint8_t bar_height = 0;
+    uint8_t bar_segment = 0;
+
+    if (wpm_graph_timer == 0) {
+	render_kyria_logo();
+	wpm_graph_timer = timer_read();
+	return;
+    }
+    if(timer_elapsed(wpm_graph_timer) > 500) {
+	wpm_graph_timer = timer_read();
+
+	if(OLED_DISPLAY_HEIGHT == 64)
+		bar_height = get_current_wpm() / 2;
+	if(OLED_DISPLAY_HEIGHT == 32)
+		bar_height = get_current_wpm() / 4;
+	if(bar_height > OLED_DISPLAY_HEIGHT)
+		bar_height = OLED_DISPLAY_HEIGHT;
+
+	if(bar_height == 0) {
+	    // keep track of how many zero bars we have drawn.  If
+	    // there is a whole screen worth, turn the display off and
+	    // wait until there is something to do
+	    if (zero_bar_count > OLED_DISPLAY_WIDTH) {
+		oled_off();
+		return;
+	    }
+	    zero_bar_count++;
+	} else
+	    zero_bar_count=0;
+
+	oled_pan(false);
+	bar_count++;
+	for (uint8_t i = (OLED_DISPLAY_HEIGHT / 8); i > 0; i--) {
+	    if (bar_height > 7) {
+		if (i % 2 == 1 && bar_count % 3 == 0)
+		    bar_segment = 254;
+		else
+		    bar_segment = 255;
+		bar_height -= 8;
+	    } else {
+		switch (bar_height) {
+		    case 0:
+			bar_segment = 0;
+			break;
+
+		    case 1:
+			bar_segment = 128;
+			break;
+
+		    case 2:
+			bar_segment = 192;
+			break;
+
+		    case 3:
+			bar_segment = 224;
+			break;
+
+		    case 4:
+			bar_segment = 240;
+			break;
+
+		    case 5:
+			bar_segment = 248;
+			break;
+
+		    case 6:
+			bar_segment = 252;
+			break;
+
+		    case 7:
+			bar_segment = 254;
+			break;
+		}
+		bar_height = 0;
+
+		if (i % 2 == 1 && bar_count % 3 == 0)
+		    bar_segment++;
+	    }
+	    oled_write_raw_byte(bar_segment, (i-1) * OLED_DISPLAY_WIDTH);
+	}
+    }
 }
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
-        render_kyria_logo();
+        render_wpm_graph();
+         //render_kyria_logo();
+    }
+}
+
+#endif
+
+#ifdef ENCODER_ENABLE
+bool is_alt_tab_active = false;
+uint16_t alt_tab_timer = 0;
+
+void encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+	if (clockwise) {
+	  if (!is_alt_tab_active) {
+	    is_alt_tab_active = true;
+	    register_code(KC_LALT);
+	  }
+	  alt_tab_timer = timer_read();
+	  tap_code16(KC_TAB);
+	} else {
+	  if (!is_alt_tab_active) {
+	    is_alt_tab_active = true;
+	    register_code(KC_LALT);
+	  }
+	  alt_tab_timer = timer_read();
+	  tap_code16(S(KC_TAB));
+	}
+    }
+    else if (index == 1) {
+         // Page up/Page down
+        if (clockwise) {
+            tap_code(KC_PGDN);
+        } else {
+            tap_code(KC_PGUP);
+        }
+       /*  if (clockwise) {
+            tap_code16(C(A(KC_RIGHT)));
+        } else {
+            tap_code16(C(A(KC_LEFT)));
+        } */
     }
 }
 #endif
 
-#ifdef ENCODER_ENABLE
+void matrix_scan_user(void) {
+  if (is_alt_tab_active) {
+    if (timer_elapsed(alt_tab_timer) > 700) {
+      unregister_code(KC_LALT);
+      is_alt_tab_active = false;
+    }
+  }
+}
+
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
+
+/* #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Volume control
@@ -245,4 +395,4 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
 }
-#endif
+#endif */
