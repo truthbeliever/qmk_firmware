@@ -38,9 +38,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |ctrlTAB |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ö    |  ä ctrl|
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LSFT ( |   Y  |   X  |   C  |   V  |   B  | Numb |ALTcap|  | ALTcP| Numb |   N  |   M  | ,  ; | . :  | - _  | ) RSFT |
+ * | LSFT ( |   Y  |   X  |   C  |   V  |   B  |NUMENT|ALTcap|  | ALTcP| Numb |   N  |   M  | ,  ; | . :  | - _  | ) RSFT |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | win  | Nav  | Bspc | Del  | Bspc |  |  SPC | Enter| Space| Nav  |adjust|
+ *                        | PSCR | Nav  | Bspc | Del  | spc  |  | bSPC | Enter| Space| Nav  |adjust|
  *                        |      |      | shft |      |      |  |      |      | shift|      |      |
  *                        `----------------------------------'  `----------------------------------'
  *
@@ -48,16 +48,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTZ] = LAYOUT(
       KC_ESC,  CH_Q,   CH_W,   CH_E,   CH_R,   CH_T,                                                 CH_Z,    CH_U,    CH_I,    CH_O,    CH_P,    CH_UE,
       MT(MOD_LCTL,KC_TAB),  CH_A,   CH_S,   CH_D,   CH_F,   CH_G,                                    CH_H,    CH_J,    CH_K,    CH_L,    CH_OE,   MT(MOD_RCTL,CH_AE),
-      KC_LSPO, CH_Y,   CH_X,   CH_C,   CH_V,   CH_B,   MO(_RAISE), MT(MOD_LALT,KC_CAPS) , MT(MOD_RALT,KC_CAPS),   MO(_RAISE), CH_N,    CH_M,    CH_COMM, CH_DOT,  CH_MINS, KC_RSPC,
-              KC_LGUI, MO(_NAV),KC_BSPSHT, KC_DEL, KC_BSPC,    KC_SPC, KC_ENT,  MT(MOD_RSFT,KC_SPC), MO(_NAV), MO(_ADJUST)
+      KC_LSPO, CH_Y,   CH_X,   CH_C,   CH_V,   CH_B,   LT(_RAISE, KC_ENT), MT(MOD_LALT,KC_CAPS) , MT(MOD_RALT,KC_CAPS),   MO(_RAISE), CH_N,    CH_M,    CH_COMM, CH_DOT,  CH_MINS, KC_RSPC,
+              KC_PSCR, MO(_NAV),KC_BSPSHT, KC_DEL, KC_SPC,    KC_BSPC, KC_ENT,  MT(MOD_RSFT,KC_SPC), MO(_NAV), MO(_ADJUST)
     ),
 /*
  * COLMAK Layer:
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |  Q   | W    | F    |  P   |  B   |                              | J    | L    | U    |  Y   | ;    |  "     |
+ * |        |  Q   | W    | F    |  P   |  B   |                              | J    | L    | U    |  Y   | ;    |  -     |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  A   | R    | S    | T    |  G   |                              | M    | N    |  E   |   I  |  O   |  -     |
+ * |        |  A   | R    | S    | T    |  G   |                              | M    | N    |  E   |   I  |  O   |  =     |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |  Z   | X    | C    | D    |  V   |      |      |  |      |      | K    |  H   |  ,   |  .   | /    |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
@@ -117,19 +117,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |   F1   |  F2  | F3   | F4   |  F5  |   F6 |                              |  F7  | F8   | F9   | F10  | F11  |  F12   |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |QWERTZ| SAI  | HUI  | VAI  |      |                              |      |      |      |      |      |        |
+ * |        |QWERTZ| M_P  | TOG  | MOD  |      |                              | HUD  | HUI  | SAD  | SAI  | VAD  | VAI    |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |COLMAK| SAD  | HUD  | VAD  |      |      |      |  |      |      |      |      |      |      |      |        |
+ * |        |COLMAK|      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_ADJUST] = LAYOUT(
-      KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,                                     KC_F7  , KC_F8  , KC_F9  , KC_F10  , KC_F11 , KC_F12,
-      XXXXXXX, TO(_QWERTZ), RGB_M_P ,RGB_TOG ,RGB_MOD, XXXXXXX,                                 RGB_HUD ,RGB_HUI, RGB_SAD ,RGB_SAI ,RGB_VAD ,RGB_VAI,
-      _______, TO(_COLEMAK), XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+      KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,                                          KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12,
+      XXXXXXX, TO(_QWERTZ), RGB_M_P ,RGB_TOG ,RGB_MOD, XXXXXXX,                                      RGB_HUD,RGB_HUI , RGB_SAD ,RGB_SAI, RGB_VAD, RGB_VAI,
+      _______, TO(_COLEMAK), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+                                      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 // /*
 //  * Layer template
@@ -188,7 +188,7 @@ static void render_qmk_logo(void) {
 static void render_status(void) {
     // QMK Logo and version information
     render_qmk_logo();
-    oled_write_P(PSTR("Kyria rev1.0\n\n"), false);
+    oled_write_P(PSTR("Kyria rev 1.0\n\n"), false);
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
