@@ -39,6 +39,9 @@ enum custom_keycodes {
 #define KC_AD_PSCR LT(_ADJUST, KC_PSCR)
 #define KC_AD_INS LT(_ADJUST, KC_INS)
 #define KC_CTPL_CPS LCTL_T(KC_CLCK)
+
+#define KC_CTPL_BS LCTL_T(KC_BSPC)
+
 #define KC_RALT_CPS RALT_T(KC_CLCK)
 #define KC_CTPR_CPS RCTL_T(KC_CLCK)
 #define KC_FUNC_SPC LT(_FUNC, KC_SPC)
@@ -53,6 +56,9 @@ enum custom_keycodes {
 #define KC_LAEN LALT_T(KC_ENT)        // - Enter / Left Alt
 #define KC_CBSP LCTL_T(KC_BSPC)
 
+#define KC_BSPSHT MT(MOD_LSFT,KC_BSPC)
+#define KC_SPCSHT MT(MOD_RSFT,KC_SPC)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    // Colemak DM-MK Mod
@@ -66,21 +72,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        KC_LSPO ,KC_Z    ,KC_X    ,KC_C    ,KC_D    ,KC_V    ,KC_FUNC_E ,KC_AD_PSCR    ,KC_AD_INS,KC_FUNC,KC_K    ,KC_H    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSPC ,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-       KC_LCTL ,KC_HYPR ,KC_LALT ,NAV_L        ,KC_BSPC     ,KC_DEL  ,KC_CTPL_CPS ,KC_CTPR_CPS ,KC_ENT      ,KC_SPC       ,NAV_L   ,KC_ALGR ,KC_RGUI ,KC_RCTL
+       KC_LCTL ,KC_PSCR ,KC_LALT ,NAV_L        ,KC_BSPSHT   ,KC_DEL  ,KC_BSPC         ,KC_CTPR_CPS ,KC_ENT  ,KC_SPCSHT    ,NAV_L   ,KC_ALGR ,KC_RGUI ,KC_RCTL
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 
    [_COLEMAK] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-       KC_ESC  ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                                            KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_CMIN ,
+       _______ ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                                            KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,_______ ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       KC_ATAB ,KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_G    ,KC_LBRC                           ,KC_RBRC ,KC_J    ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,KC_EQL  ,
+       _______ ,KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_G    ,_______                           ,_______ ,KC_J    ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,_______  ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       KC_BSLS ,KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_D    ,KC_SPC                            ,KC_BSPC ,KC_H    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,KC_QUOT ,
+       _______ ,KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_D    ,_______                           ,_______ ,KC_H    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,_______ ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       KC_LSPO ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,KC_FUNC_E ,KC_AD_PSCR    ,KC_AD_INS,KC_FUNC,KC_K    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSPC ,
+       _______ ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,_______ ,_______         ,_______ ,_______ ,KC_K    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,_______ ,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-       KC_LCTL ,KC_HYPR ,KC_LALT ,NAV_L        ,KC_BSPC     ,KC_DEL  ,KC_CTPL_CPS ,KC_CTPR_CPS ,KC_ENT      ,KC_SPC       ,NAV_L   ,KC_ALGR ,KC_RGUI ,KC_RCTL
+       _______ ,_______ ,_______ ,_______      ,_______     ,_______ ,_______         ,_______ ,_______     ,_______      ,_______ ,_______ ,_______ ,_______
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 
