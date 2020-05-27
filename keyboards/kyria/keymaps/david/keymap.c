@@ -27,7 +27,12 @@ enum layers {
 
 char wpm_str[10];
 uint16_t wpm_graph_timer = 0;
+uint16_t copy_paste_timer =0;
 #define KC_BSPSHT MT(MOD_LSFT,KC_BSPC)
+
+enum custom_keycodes {
+    KC_CCCV = SAFE_RANGE
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -49,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC,  CH_Q,   CH_W,   CH_E,   CH_R,   CH_T,                                                 CH_Z,    CH_U,    CH_I,    CH_O,    CH_P,    CH_UE,
       MT(MOD_LCTL,KC_TAB),  CH_A,   CH_S,   CH_D,   CH_F,   CH_G,                                    CH_H,    CH_J,    CH_K,    CH_L,    CH_OE,   MT(MOD_RCTL,CH_AE),
       KC_LSPO, CH_Y,   CH_X,   CH_C,   CH_V,   CH_B,   LT(_RAISE, KC_ENT), MT(MOD_LALT,KC_CAPS) , MT(MOD_RALT,KC_CAPS),   MO(_RAISE), CH_N,    CH_M,    CH_COMM, CH_DOT,  CH_MINS, KC_RSPC,
-              KC_PSCR, MO(_NAV),KC_BSPSHT, KC_DEL, KC_SPC,    KC_BSPC, KC_ENT,  MT(MOD_RSFT,KC_SPC), MO(_NAV), MO(_ADJUST)
+              KC_CCCV, MO(_NAV),KC_BSPSHT, KC_DEL, KC_SPC,    KC_BSPC, KC_ENT,  MT(MOD_RSFT,KC_SPC), MO(_NAV), MO(_ADJUST)
     ),
 /*
  * COLMAK Layer:
@@ -156,6 +161,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _RAISE, _NAV, _ADJUST);
 } */
+
+
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -373,7 +380,21 @@ void matrix_scan_user(void) {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_CCCV:  // One key copy/paste
+            if (record->event.pressed) {
+                copy_paste_timer = timer_read();
+            } else {
+                if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
+                    tap_code16(LCTL(KC_C));
+                } else { // Tap, paste
+                    tap_code16(LCTL(KC_V));
+                }
+            }
+            break;
+    }
     return true;
+    //return true;
 }
 
 /* #ifdef ENCODER_ENABLE
