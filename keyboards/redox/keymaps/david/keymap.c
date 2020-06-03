@@ -19,7 +19,11 @@ enum custom_keycodes {
   SYMB,
   NAV,
   ADJUST,
+  KC_CCCV,
 };
+
+uint16_t copy_paste_timer;
+#define TAPPING_TERM 200
 
 // Shortcut to make keymap more readable
 #define SYM_L   MO(_SYMB)
@@ -72,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        KC_LSPO ,KC_Z    ,KC_X    ,KC_C    ,KC_D    ,KC_V    ,KC_FUNC_E ,KC_AD_PSCR    ,KC_AD_INS,KC_FUNC,KC_K    ,KC_H    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSPC ,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-       KC_LCTL ,KC_PSCR ,KC_LALT ,NAV_L        ,KC_BSPSHT   ,KC_DEL  ,KC_BSPC         ,KC_CTPR_CPS ,KC_ENT  ,KC_SPCSHT    ,NAV_L   ,KC_ALGR ,KC_RGUI ,KC_RCTL
+       KC_LCTL ,KC_CCCV ,KC_LALT ,NAV_L        ,KC_BSPSHT   ,KC_DEL  ,KC_BSPC         ,KC_CTPR_CPS ,KC_ENT  ,KC_SPCSHT    ,NAV_L   ,KC_ALGR ,KC_RGUI ,KC_RCTL
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 
@@ -148,3 +152,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   )
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_CCCV:
+            if (record->event.pressed) {
+                copy_paste_timer = timer_read();
+            } else {
+                if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
+                    tap_code16(LCTL(KC_C));
+                } else { // Tap, paste
+                    tap_code16(LCTL(KC_V));
+                }
+            }
+            break;
+    }
+    return true;
+    //return true;
+}
