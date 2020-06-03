@@ -32,3 +32,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
+
+// The Leader key allows to flexibly assign macros to key sequences.
+#define LEADER_PER_KEY_TIMING
+#define LEADER_TIMEOUT 350
+
+// Allows media codes to properly register in macros and rotary encoder code
+#define TAP_CODE_DELAY 10
