@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | LSFT ( |   Y  |   X  |   C  |   V  |   B  |NUMENT|ALTcap|  | ALTcP| Numb |   N  |   M  | ,  ; | . :  | - _  | ) RSFT |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | PSCR | Nav  | Bspc | Del  | spc  |  | bSPC | Enter| Space| Nav  |adjust|
+ *                        | PSCR | Nav  | Bspc | Del  | bspc |  | CCCV | Enter| Space| Nav  |adjust|
  *                        |      |      | shft |      |      |  |      |      | shift|      |      |
  *                        `----------------------------------'  `----------------------------------'
  *
@@ -54,26 +54,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC,  CH_Q,   CH_W,   CH_E,   CH_R,   CH_T,                                                 CH_Z,    CH_U,    CH_I,    CH_O,    CH_P,    CH_UE,
       MT(MOD_LCTL,KC_TAB),  CH_A,   CH_S,   CH_D,   CH_F,   CH_G,                                    CH_H,    CH_J,    CH_K,    CH_L,    CH_OE,   MT(MOD_RCTL,CH_AE),
       KC_LSPO, CH_Y,   CH_X,   CH_C,   CH_V,   CH_B,   LT(_RAISE, KC_ENT), MT(MOD_LALT,KC_CAPS) , MT(MOD_RALT,KC_CAPS),   MO(_RAISE), CH_N,    CH_M,    CH_COMM, CH_DOT,  CH_MINS, KC_RSPC,
-              KC_CCCV, MO(_NAV),KC_BSPSHT, KC_DEL, KC_SPC,    KC_BSPC, KC_ENT,  MT(MOD_RSFT,KC_SPC), MO(_NAV), MO(_ADJUST)
+              KC_PSCR, MO(_NAV),KC_BSPSHT, KC_DEL, KC_BSPC,    KC_CCCV, KC_ENT,  MT(MOD_RSFT,KC_SPC), MO(_NAV), MO(_ADJUST)
     ),
 /*
  * COLMAK Layer:
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |  Q   | W    | F    |  P   |  B   |                              | J    | L    | U    |  Y   | ;    |  -     |
+ * |        |  Q   | W    | F    |  P   |  B   |                              | J    | L    | U    |  Y   | ;    |  | \   |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  A   | R    | S    | T    |  G   |                              | M    | N    |  E   |   I  |  O   |  =     |
+ * |shifTAB |  A   | R    | S    | T    |  G   |                              | M    | N    |  E   |   I  |  O   |  ' "shf|
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |  Z   | X    | C    | D    |  V   |      |      |  |      |      | K    |  H   |  ,   |  .   | /    |        |
+ * |  LCTRL |  Z   | X    | C    | D    |  V   |      |      |  |      |      | K    |  H   |  ,   |  .   | /    |  - _ctr|
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
      [_COLEMAK] = LAYOUT(
-      _______, KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_B   ,                                     KC_J    ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,KC_MINUS ,
-      _______, KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_G   ,                                     KC_M    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,MT(MOD_RCTL, KC_EQL),
-      _______, KC_Z    ,KC_X    ,KC_C    ,KC_D    ,KC_V   , _______, _______, _______, _______, KC_K    ,KC_H    ,KC_COMM ,KC_DOT  ,KC_SLSH ,_______ ,
+      _______, KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_B   ,                                     KC_J    ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,KC_PIPE ,
+      MT(MOD_LSFT,KC_TAB), KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_G   ,                         KC_M    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,MT(MOD_RSFT, KC_QUOT),
+      KC_LCTL, KC_Z    ,KC_X    ,KC_C    ,KC_D    ,KC_V   , _______, _______, _______, _______, KC_K    ,KC_H    ,KC_COMM ,KC_DOT  ,KC_SLSH ,MT(MOD_RCTL, KC_MINS) ,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |    | |  @   |  #   |      |      |                              |      |      |      |   [  |   ]  |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |<>    |  \   |      |      |      |      |      |  |      |      |      |      |      |   {  |   }  |        |
+ * |        |<>    |  \   |      |      |      |      |      |  |      |      |      |      |   = +|   {  |   }  |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_RAISE] = LAYOUT(
       CH_RING, CH_1,    CH_2,    CH_3,    CH_4,    CH_5,                                        CH_6,    CH_7,    CH_8,    CH_9,    CH_0,    CH_QUOT,
       _______, CH_PIPE, CH_AT,   CH_HASH, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, CH_LBRC, CH_RBRC, XXXXXXX,
-      _______, CH_LESS, CH_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, CH_LCBR, CH_RCBR, _______,
+      _______, CH_LESS, CH_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, KC_EQL , CH_LCBR, CH_RCBR, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
