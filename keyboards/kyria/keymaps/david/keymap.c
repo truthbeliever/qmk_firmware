@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC,  CH_Q,   CH_W,   CH_E,   CH_R,   CH_T,                                                 CH_Z,    CH_U,    CH_I,    CH_O,    CH_P,    CH_UE,
       MT(MOD_LCTL,KC_TAB),  CH_A,   CH_S,   CH_D,   CH_F,   CH_G,                                    CH_H,    CH_J,    CH_K,    CH_L,    CH_OE,   MT(MOD_RCTL,CH_AE),
       KC_LSPO, CH_Y,   CH_X,   CH_C,   CH_V,   CH_B,   LT(_RAISE, KC_ENT), MT(MOD_LALT,KC_CAPS) , MT(MOD_RALT,KC_CAPS),   MO(_RAISE), CH_N,    CH_M,    CH_COMM, CH_DOT,  CH_MINS, KC_RSPC,
-              KC_PSCR, MO(_NAV),KC_BSPSHT, KC_DEL, KC_BSPC,    KC_CCCV, KC_ENT,  MT(MOD_RSFT,KC_SPC), MO(_NAV), MO(_ADJUST)
+      KC_BSPC, KC_LSFT, KC_DEL,      KC_PSCR, MO(_NAV),KC_BSPSHT, KC_DEL, KC_BSPC,    KC_CCCV, KC_ENT,  MT(MOD_RSFT,KC_SPC), MO(_NAV), MO(_ADJUST)
     ),
 /*
  * COLMAK Layer:
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_B   ,                                     KC_J    ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,KC_PIPE ,
       MT(MOD_LSFT,KC_TAB), KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_G   ,                         KC_M    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,MT(MOD_RSFT, KC_QUOT),
       KC_LCTL, KC_Z    ,KC_X    ,KC_C    ,KC_D    ,KC_V   , _______, _______, _______, _______, KC_K    ,KC_H    ,KC_COMM ,KC_DOT  ,KC_SLSH ,MT(MOD_RCTL, KC_MINS) ,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
  * Raise Layer: Symbols
@@ -92,9 +92,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_RAISE] = LAYOUT(
       CH_RING, CH_1,    CH_2,    CH_3,    CH_4,    CH_5,                                        CH_6,    CH_7,    CH_8,    CH_9,    CH_0,    CH_QUOT,
-      _______, CH_PIPE, CH_AT,   CH_HASH, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, CH_LBRC, CH_RBRC, XXXXXXX,
-      _______, CH_LESS, CH_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, KC_EQL , CH_LCBR, CH_RCBR, _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+      _______, CH_PIPE, CH_AT,   CH_HASH, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX,
+      _______, CH_LESS, CH_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, KC_EQL , KC_LCBR, KC_RCBR, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
  * Navigation Layer
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, KC_WH_U,                                     KC_ENT, KC_HOME ,KC_UP   ,KC_PGUP,  XXXXXXX, XXXXXXX,
       _______, XXXXXXX, KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_WH_D,                                     KC_BSPC,KC_LEFT ,KC_DOWN ,KC_RIGHT, XXXXXXX, XXXXXXX,
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, KC_DEL, KC_END  ,XXXXXXX ,KC_PGDN , XXXXXXX, _______,
-                                 _______, _______, KC_BTN1, KC_BTN2, _______, _______, _______, _______, _______, _______
+      _______, _______, _______, _______, _______, KC_BTN1, KC_BTN2, _______, _______, _______, _______, _______, _______
     ),
 /*
  * Adjust Layer
@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,                                          KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12,
       XXXXXXX, TO(_QWERTZ), RGB_M_P ,RGB_TOG ,RGB_MOD, XXXXXXX,                                      RGB_HUD,RGB_HUI , RGB_SAD ,RGB_SAI, RGB_VAD, RGB_VAI,
       _______, TO(_COLEMAK), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-                                      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+      _______, _______, _______,      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 // /*
 //  * Layer template
@@ -336,7 +336,7 @@ bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
+    if (index == 1) {
 	if (clockwise) {
 	  if (!is_alt_tab_active) {
 	    is_alt_tab_active = true;
@@ -353,7 +353,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 	  tap_code16(S(KC_TAB));
 	}
     }
-    else if (index == 1) {
+    else if (index == 0) {
          // Page up/Page down
         if (clockwise) {
             tap_code(KC_PGDN);
