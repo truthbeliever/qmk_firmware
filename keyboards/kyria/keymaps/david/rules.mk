@@ -4,3 +4,4 @@ RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 WPM_ENABLE = yes
 UNICODE_ENABLE = yes       # Unicode
 LEADER_ENABLE = yes        # Enable the Leader Key feature
+MOUSEKEY_ENABLE = no
