@@ -28,8 +28,6 @@ enum custom_keycodes {
   DE_OE
 };
 
-
-
 uint16_t copy_paste_timer;
 #define TAPPING_TERM 200
 

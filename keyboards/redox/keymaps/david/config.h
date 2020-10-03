@@ -47,3 +47,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 5000  /* Time (in ms) before the one shot key is released */
+
+//#define MOUSEKEY_MAX_SPEED 3
+//#define MOUSEKEY_DELAY 10
+//#define MOUSEKEY_INTERVAL 16
+
+#define MOUSEKEY_INTERVAL       20
+#define MOUSEKEY_DELAY          0
+#define MOUSEKEY_TIME_TO_MAX    60
+#define MOUSEKEY_MAX_SPEED      7
+#define MOUSEKEY_WHEEL_DELAY 0
