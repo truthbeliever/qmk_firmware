@@ -58,6 +58,7 @@ uint16_t copy_paste_timer;
 #define KC_LSFT_CPS LSFT_T(KC_CLCK)
 #define KC_FUNC_SPC LT(_FUNC, KC_SPC)
 #define KC_FUNC_BKSPC LT(_FUNC, KC_BSPC)
+#define KC_FUNC_CPS LT(_FUNC, KC_CLCK)
 #define KC_LALT_DEL LALT_T(KC_DEL)
 #define KC_COLDH TG(_COLEMAKDHMK)
 #define KC_COLE TG(_COLEMAK)
@@ -84,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        KC_LSFT ,KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_G    ,KC_DEL                            ,KC_BSPC ,KC_M    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,KC_RSFT ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       KC_BSLS ,KC_Z    ,KC_X    ,KC_C    ,KC_D    ,KC_V    ,KC_SPC  ,KC_FUNC_E       ,KC_FUNC ,KC_CCCV ,KC_K    ,KC_H    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_QUOT ,
+       KC_BSLS ,KC_Z    ,KC_X    ,KC_C    ,KC_D    ,KC_V    ,KC_SPC  ,KC_FUNC_E       ,KC_FUNC_CPS,KC_CCCV ,KC_K    ,KC_H    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_QUOT ,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
        KC_LCTL ,KC_AD_PSCR,KC_LALT,NAV_L       ,KC_BSPC     ,KC_DEL  ,KC_LSFT         ,KC_RSFT ,KC_ENT      ,KC_SPC       ,NAV_L   ,KC_ALGR ,KC_RGUI ,KC_RCTL
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
