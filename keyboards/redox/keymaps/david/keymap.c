@@ -12,6 +12,9 @@
 #define _FUNC 5
 #define _ADJUST 6
 
+#define MODS_SHIFT_MASK (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+
+
 enum custom_keycodes {
   COLEMAKDHMK = SAFE_RANGE,
   COLEMAK,
@@ -20,7 +23,12 @@ enum custom_keycodes {
   NAV,
   ADJUST,
   KC_CCCV,
+  DE_AE,
+  DE_UE,
+  DE_OE
 };
+
+
 
 uint16_t copy_paste_timer;
 #define TAPPING_TERM 200
@@ -40,6 +48,7 @@ uint16_t copy_paste_timer;
 #define NAV_L   MO(_NAV)
 #define KC_FUNC_E LT(_FUNC, KC_ENT)
 #define KC_FUNC MO(_FUNC)
+#define KC_FUNC_C LT(_FUNC, KC_CLCK)
 #define KC_AD_PSCR LT(_ADJUST, KC_PSCR)
 #define KC_AD_INS LT(_ADJUST, KC_INS)
 #define KC_CTPL_CPS LCTL_T(KC_CLCK)
@@ -47,7 +56,8 @@ uint16_t copy_paste_timer;
 #define KC_CTPL_BS LCTL_T(KC_BSPC)
 
 #define KC_RALT_CPS RALT_T(KC_CLCK)
-#define KC_CTPR_CPS RCTL_T(KC_CLCK)
+#define KC_RSFT_CPS RSFT_T(KC_CLCK)
+#define KC_LSFT_CPS LSFT_T(KC_CLCK)
 #define KC_FUNC_SPC LT(_FUNC, KC_SPC)
 #define KC_FUNC_BKSPC LT(_FUNC, KC_BSPC)
 #define KC_LALT_DEL LALT_T(KC_DEL)
@@ -63,6 +73,8 @@ uint16_t copy_paste_timer;
 #define KC_BSPSHT MT(MOD_LSFT,KC_BSPC)
 #define KC_SPCSHT MT(MOD_RSFT,KC_SPC)
 
+//ganz schnell aa drücken gibt ae
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    // Colemak DM-MK Mod
@@ -72,11 +84,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        KC_ATAB ,KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_B    ,KC_LBRC                           ,KC_RBRC ,KC_J    ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,KC_EQL  ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       KC_BSLS ,KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_G    ,KC_SPC                            ,KC_BSPC ,KC_M    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,KC_QUOT ,
+       KC_LSFT ,KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_G    ,KC_DEL                            ,KC_BSPC ,KC_M    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,KC_RSFT ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       KC_LSPO ,KC_Z    ,KC_X    ,KC_C    ,KC_D    ,KC_V    ,KC_FUNC_E ,KC_AD_PSCR    ,KC_AD_INS,KC_FUNC,KC_K    ,KC_H    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSPC ,
+       KC_BSLS ,KC_Z    ,KC_X    ,KC_C    ,KC_D    ,KC_V    ,KC_SPC  ,KC_FUNC_E       ,KC_FUNC ,KC_CCCV ,KC_K    ,KC_H    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_QUOT ,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-       KC_LCTL ,KC_CCCV ,KC_LALT ,NAV_L        ,KC_BSPSHT   ,KC_DEL  ,KC_BSPC         ,KC_CTPR_CPS ,KC_ENT  ,KC_SPCSHT    ,NAV_L   ,KC_ALGR ,KC_RGUI ,KC_RCTL
+       KC_LCTL ,KC_AD_PSCR,KC_LALT,NAV_L       ,KC_BSPC     ,KC_DEL  ,KC_LSFT         ,KC_RSFT ,KC_ENT      ,KC_SPC       ,NAV_L   ,KC_ALGR ,KC_RGUI ,KC_RCTL
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 
@@ -123,14 +135,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 
-  // Function layer and some extra keys on right hand
+  // Function layer
   [_FUNC] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
        KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_F6   ,                                            KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,KC_F11  ,KC_F12 ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       _______ ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,_______ ,                          _______ ,KC_6    ,KC_7   ,KC_8     ,KC_9    ,KC_0    ,_______ ,
+       _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,                          _______ ,_______ ,_______ ,DE_UE   ,_______ ,_______ ,_______ ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,                          _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
+       _______ ,DE_AE   ,_______ ,_______ ,_______ ,_______ ,_______ ,                          _______ ,_______ ,_______ ,_______ ,_______ ,DE_OE   ,_______ ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        _______ ,KC_PSCR ,KC_NLCK ,KC_INS  ,KC_CAPS ,KC_APP  ,_______ ,_______ ,        _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
@@ -153,6 +165,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+void tap_key(uint16_t keycode) {
+  register_code(keycode);
+  unregister_code(keycode);
+}
+
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_CCCV:
@@ -166,7 +184,54 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+        case DE_AE:
+            if (record->event.pressed) {
+                uint8_t temp_mod = get_mods();
+                clear_mods();
+                register_code(KC_LALT);
+                if (temp_mod & MODS_SHIFT_MASK) {
+                tap_key(KC_P1); tap_key(KC_P4); tap_key(KC_P2); // Ä
+                } else {
+                tap_key(KC_P1); tap_key(KC_P3); tap_key(KC_P2); // ä
+                }
+                unregister_code(KC_LALT);
+                return false;
+            }
+            break;
+        case DE_UE:
+            if (record->event.pressed) {
+                uint8_t temp_mod = get_mods();
+                clear_mods();
+                register_code(KC_LALT);
+                if (temp_mod & MODS_SHIFT_MASK) {
+                tap_key(KC_P1); tap_key(KC_P5); tap_key(KC_P4); // UE
+                } else {
+                tap_key(KC_P1); tap_key(KC_P2); tap_key(KC_P9); // ue
+                }
+                unregister_code(KC_LALT);
+                return false;
+            }
+            break;
+        case DE_OE:
+            if (record->event.pressed) {
+                uint8_t temp_mod = get_mods();
+                clear_mods();
+                register_code(KC_LALT);
+                if (temp_mod & MODS_SHIFT_MASK) {
+                tap_key(KC_P1); tap_key(KC_P5); tap_key(KC_P3); // OE
+                } else {
+                tap_key(KC_P1); tap_key(KC_P4); tap_key(KC_P8); // oe
+                }
+                unregister_code(KC_LALT);
+                return false;
+            }
+            break;
     }
     return true;
-    //return true;
 }
+
+void matrix_init_user(void) {
+    set_unicode_input_mode(UC_WIN);
+};
+
+
