@@ -82,9 +82,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        KC_ATAB ,KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_B    ,KC_LBRC                           ,KC_RBRC ,KC_J    ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,KC_EQL  ,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       KC_LSFT ,KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_G    ,KC_DEL                            ,KC_BSPC ,KC_M    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,KC_RSFT ,
+       KC_BSLS ,KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_G    ,KC_DEL                            ,KC_BSPC ,KC_M    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,KC_QUOT,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       KC_BSLS ,KC_Z    ,KC_X    ,KC_C    ,KC_D    ,KC_V    ,KC_SPC  ,KC_FUNC_E       ,KC_FUNC_CPS,KC_CCCV ,KC_K    ,KC_H    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_QUOT ,
+       KC_LSFT ,KC_Z    ,KC_X    ,KC_C    ,KC_D    ,KC_V    ,KC_SPC  ,KC_FUNC_E       ,KC_FUNC_CPS,KC_CCCV ,KC_K    ,KC_H    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSFT ,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
        KC_LCTL ,KC_AD_PSCR,KC_LALT,NAV_L       ,KC_BSPC     ,KC_DEL  ,KC_LSFT         ,KC_RSFT ,KC_ENT      ,KC_SPC       ,NAV_L   ,KC_ALGR ,KC_RGUI ,KC_RCTL
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
