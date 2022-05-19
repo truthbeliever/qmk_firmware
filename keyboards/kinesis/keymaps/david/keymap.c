@@ -30,6 +30,7 @@ enum kinesis_keycodes {
 
 #define NAV_L   MO(_NAV)
 #define KC_FUNC_E LT(_FUNC, KC_ENT)
+#define KC_NAV_SPC LT(_NAV, KC_SPC)
 #define KC_FUNC MO(_FUNC)
 #define KC_FUNC_C LT(_FUNC, KC_CLCK)
 #define KC_CTPL_CPS LCTL_T(KC_CLCK)
@@ -45,11 +46,11 @@ enum kinesis_keycodes {
 #define KC_LALT_DEL LALT_T(KC_DEL)
 #define KC_COLDH TG(_COLEMAK)
 
-
 #define KC_ATAB RALT_T(KC_TAB)        // - Tab / Alt Gr
 #define KC_CMIN RCTL_T(KC_MINUS)      // - Minus / Right Ctrl
 #define KC_RAEN RALT_T(KC_ENT)        // - Enter / Right Alt
 #define KC_LAEN LALT_T(KC_ENT)        // - Enter / Left Alt
+
 #define KC_CBSP LCTL_T(KC_BSPC)
 
 #define KC_BSPSHT MT(MOD_LSFT,KC_BSPC)
@@ -84,13 +85,13 @@ Colemak
 [_COLEMAK] = LAYOUT_pretty(
   KC_ESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS,  XXXXXXX, RESET,
   KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                          KC_6,    KC_7,    KC_8,    KC_9,     KC_0,    KC_MINS,
-  KC_ATAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                                          KC_J,    KC_L,    KC_U,    KC_Y,     KC_SCLN, KC_EQL,
+  KC_TAB,   KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                                          KC_J,    KC_L,    KC_U,    KC_Y,     KC_SCLN, KC_EQL,
   KC_BSLS,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                                          KC_M,    KC_N,    KC_E,    KC_I,     KC_O,    KC_QUOT,
   KC_LCTL,  KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                                                          KC_K,    KC_H,    KC_COMM, KC_DOT,   KC_SLSH, KC_RCTL,
-            KC_PSCR, KC_RGUI, KC_LALT, NAV_L,                                                                           NAV_L,   KC_ALGR, KC_LBRC,  KC_RBRC,
+            KC_LALT, KC_LSFT, NAV_L,   KC_DEL,                                                                          KC_ENT,  NAV_L,   KC_RGUI,  KC_ALGR,
                                                            KC_LSFT,  KC_FUNC_E,          KC_FUNC_CPS, KC_RSFT,
-                                                                     KC_LSFT,            KC_RSFT,
-                                                KC_BSPC,   KC_DEL,   KC_LSFT,            KC_RSFT,     KC_ENT,  KC_SPC
+                                                                     KC_NAV_SPC,         NAV_L,
+                                                KC_BSPC,   KC_DEL,   KC_LBRC,            KC_RBRC,     KC_ENT, KC_SPC
 ),
 
 /*
